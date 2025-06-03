@@ -1,0 +1,21 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[dev]
+  framework = "#static"
+  publish = "." # Explicitly tell netlify dev to serve from the root for static assets
+
+# Custom headers for .tsx and .ts files
+[[headers]]
+  for = "/*.tsx" # Apply to all .tsx files in the root of the publish directory
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+
+[[headers]]
+  for = "/*.ts"  # Apply to all .ts files in the root of the publish directory
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+
+[functions]
+  node_bundler = "esbuild"

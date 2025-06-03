@@ -1,0 +1,27 @@
+[build]
+  # This tells Netlify where your built site files are.
+  # Since your index.html is in the root, we use "."
+  publish = "."
+  # This tells Netlify where your serverless functions are.
+  functions = "netlify/functions"
+
+[dev]
+  # This explicitly tells netlify dev that this is a static site.
+  # This should prevent the "Hydrogen or Remix" prompt.
+  framework = "#static"
+  # The directory to serve static files from during local development.
+  # For your setup, index.html is in the root.
+  publish = "."
+  # You can specify a port for your local dev server if you like (optional)
+  # targetPort = 8888
+  # You can specify a port for your local functions server (optional)
+  # functionsPort = 34567
+  # Command to run the dev server. For a static site where index.html is served directly,
+  # this might not be strictly needed if `framework = "#static"` is set,
+  # but providing a simple echo can ensure it doesn't look for complex commands.
+  # Or, often, it can be omitted when framework="#static" is used.
+  # We'll try omitting it first as framework="#static" should be sufficient.
+
+# Optional, but good practice to specify the bundler for Node.js functions
+[functions]
+  node_bundler = "esbuild"
