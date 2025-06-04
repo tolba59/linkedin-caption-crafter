@@ -1,21 +1,47 @@
 [build]
+  # This tells Netlify where your built site files are.
+  # Since your index.html is in the root, we use "."
   publish = "."
+  # This tells Netlify where your serverless functions are.
   functions = "netlify/functions"
 
 [dev]
+  # This explicitly tells netlify dev that this is a static site.
   framework = "#static"
-  publish = "." # Explicitly tell netlify dev to serve from the root for static assets
+  # The directory to serve static files from during local development.
+  publish = "."
 
-# Custom headers for .tsx and .ts files
+# Custom headers for .js, .tsx and .ts files
 [[headers]]
-  for = "/*.tsx" # Apply to all .tsx files in the root of the publish directory
+  for = "/*.js" # Applies to index.js and any other JS files in the root
   [headers.values]
     Content-Type = "application/javascript; charset=utf-8"
+    X-JS-Processed = "true" # Test header
 
 [[headers]]
-  for = "/*.ts"  # Apply to all .ts files in the root of the publish directory
+  for = "/*.ts"  # Applies to types.ts and any .ts files in services/ or components/ if directly served
   [headers.values]
     Content-Type = "application/javascript; charset=utf-8"
+    X-TS-Processed = "true" # Test header
+
+[[headers]]
+  for = "/*.tsx" # Applies to main.tsx, App.tsx and any .tsx files in components/
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+    X-TSX-Processed = "true" # Test header for .tsx files
+
+[[headers]]
+  for = "/components/*.tsx" # Specific rule for components
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+    X-Component-TSX-Processed = "true"
+
+[[headers]]
+  for = "/services/*.ts" # Specific rule for services
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+    X-Service-TS-Processed = "true"
+
 
 [functions]
   node_bundler = "esbuild"
